@@ -63,17 +63,16 @@ if path.exists(real_local_path):
     if is_empty:
         os.rmdir(real_local_path)
 
-is_master = 'master' == tag
-
-print subprocess.check_output('cd %s && git status' % real_local_path, shell=True)
 
 command_checkout = 'cd %s && git clone %s %s' % (local_path, git, tag)
+command_checkout_tag = 'cd %s && git clone --branch %s %s %s' % (local_path, tag, git, tag)
 command_update = 'cd %s && git pull' % real_local_path
 command_clean = 'cd %s && git add . && git stash && git stash drop' % real_local_path
 command_status = 'cd %s && git status' % real_local_path
 
 status = subprocess.check_output(command_status, shell=True)
 is_clean = 'directory clean' in status
+is_master = 'master' == tag
 
 
 def clean():
@@ -87,8 +86,15 @@ def update():
 def checkout():
     subprocess.check_call(command_checkout, shell=True)
 
+
+def checkout_tag():
+    subprocess.check_call(command_checkout_tag, shell=True)
+
 if is_empty:
-    checkout()
+    if is_master:
+        checkout()
+    else:
+        checkout_tag()
     print 'checkout success'
 else:
     if is_master:
