@@ -16,10 +16,10 @@ a tools for check out code for git
 
 parse = argparse.ArgumentParser(description='a tools for check out code for git')
 
-parse.add_argument('--git', dest='git', help= 'git ssh address', required=True)
+parse.add_argument('--git', '-g', dest='git', help= 'git ssh address', required=True)
 parse.add_argument('--tag', '-t', dest='tag', help= 'git tag')
 parse.add_argument('--dir', '-d', dest='dir', help= 'local dir', required= True)
-parse.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='Print verbose logging.')
+parse.add_argument('--verbose', '-v',  dest='verbose', action='store_true', help='Print verbose logging.')
 
 args = parse.parse_args()
 
