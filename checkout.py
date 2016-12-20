@@ -56,22 +56,26 @@ real_local_path = path.join(local_path, tag)
 if not path.exists(local_path):
     os.makedirs(local_path)
 
-is_empty = True
-
-if path.exists(real_local_path):
-    is_empty = len(os.listdir(real_local_path)) <= 0
-    if is_empty:
-        os.rmdir(real_local_path)
-
-
 command_checkout = 'cd %s && git clone %s %s' % (local_path, git, tag)
 command_checkout_tag = 'cd %s && git clone --branch %s %s %s' % (local_path, tag, git, tag)
 command_update = 'cd %s && git pull' % real_local_path
 command_clean = 'cd %s && git add . && git stash && git stash drop' % real_local_path
 command_status = 'cd %s && git status' % real_local_path
 
-status = subprocess.check_output(command_status, shell=True)
-is_clean = 'directory clean' in status
+is_empty = True
+
+if path.exists(real_local_path):
+    is_empty = len(os.listdir(real_local_path)) <= 0
+    if is_empty:
+        os.rmdir(real_local_path)
+    else:
+        status = subprocess.check_output(command_status, shell=True)
+        is_clean = 'directory clean' in status
+
+
+
+
+
 is_master = 'master' == tag
 
 
@@ -108,3 +112,5 @@ else:
             clean()
             print 'clean %' % tag
         print ' working directory clean'
+
+print 'git path: %s' % real_local_path
