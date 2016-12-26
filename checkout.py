@@ -110,7 +110,7 @@ else:
     else:
         if not is_clean:
             clean()
-            print 'clean %' % tag
+            print 'clean %s' % tag
         print ' working directory clean'
 
 print 'git path: %s' % real_local_path
