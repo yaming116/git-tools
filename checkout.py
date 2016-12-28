@@ -73,9 +73,8 @@ if path.exists(real_local_path):
         status = subprocess.check_output(command_status, shell=True)
         is_clean = 'directory clean' in status
 
-
-
-
+        if not is_clean:
+            is_clean = 'tree clean' in status
 
 is_master = 'master' == tag
 
