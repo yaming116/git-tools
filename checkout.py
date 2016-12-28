@@ -63,6 +63,7 @@ command_clean = 'cd %s && git add . && git stash && git stash drop' % real_local
 command_status = 'cd %s && git status' % real_local_path
 
 is_empty = True
+is_clean = True
 
 if path.exists(real_local_path):
     is_empty = len(os.listdir(real_local_path)) <= 0
