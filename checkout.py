@@ -112,5 +112,6 @@ else:
             clean()
             print 'clean %s' % tag
         print ' working directory clean'
+        update()
 
 print 'git path: %s' % real_local_path
